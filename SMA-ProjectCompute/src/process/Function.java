@@ -14,4 +14,7 @@ public abstract class Function {
 	public abstract double eval();
 	public abstract double f(double x);
 	
+	public String toString() {
+		return "Function | min = " + min + " ; max = " + max + " ; delta = " + delta + " |";
+	}
 }

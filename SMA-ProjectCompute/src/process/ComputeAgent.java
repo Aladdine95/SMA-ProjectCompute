@@ -1,5 +1,7 @@
 package process;
 
+import java.util.Arrays;
+
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
@@ -7,6 +9,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import util.Utilitary;
 
 /*
  * To setup the wanted function, define the first argument of the agent as the function, three function are available : 
@@ -49,18 +52,38 @@ public class ComputeAgent extends Agent{
 				ACLMessage msg = receive();
 				if (msg!=null) {
 					System.out.println(" - " + myAgent.getLocalName() + " <- " + msg.getContent() );
-					System.out.println(msg.getContent().toString());
 					String recievedMessage = msg.getContent().toString();
 					String[] parameters = recievedMessage.split(",");
 					double upper = 0;
 					double lower = 0;
 					double step = 0;
 					double result = 0;
+					String agentSDType = null;
 					try {
 						upper = Double.valueOf(parameters[0]);
-						lower = Double.valueOf(parameters[0]);
-						step = Double.valueOf(parameters[0]);
-						if
+						lower = Double.valueOf(parameters[1]);
+						step = Double.valueOf(parameters[2]);
+						agentSDType = Utilitary.isAgentGivenType(this.getAgent());
+						System.out.println(agentSDType);
+						Function func = null;
+						if(agentSDType == "Inverse") {
+							func = new InverseFunction(lower, upper, step);
+							System.out.println("InverseInside");
+						}
+						else if(agentSDType == "NeperianLogarithm") {
+							func = new NeperianLogarithmFunction(lower, upper, step);
+							System.out.println("NeperianLogarithmInside");
+						}
+						else if(agentSDType == "Exponential") {
+							func = new ExponentialFunction(lower, upper, step);
+							System.out.println("ExponentialInside");
+						}
+						else {
+							System.out.println("Function is not recognized.");
+						}
+						
+						if(func != null)
+							System.out.println(func);
 					}
 					catch(Exception e) {
 						System.out.println("Wrong format was recieved, aborting the calculations");
