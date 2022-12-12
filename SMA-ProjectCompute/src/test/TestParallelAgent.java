@@ -89,19 +89,22 @@ public class TestParallelAgent extends Agent {
 
 class ListenBehaviour extends SimpleBehaviour {
 	int nbAgents;
+	Agent a;
 	
 	public ListenBehaviour(Agent a, int nbAgents) {
 		super(a);
+		this.a = a;
+		this.nbAgents = nbAgents
 	}
 	
 	public void action() {
-		ACLMessage msg = myAgent.receive();
-        if (msg!=null) {
-          System.out.println( " - " + myAgent.getLocalName() + " <- " + msg.getContent() );
+		ACLMessage msg = a.receive();
+        	if (msg!=null) {
+          	System.out.println( " - " + a.getLocalName() + " <- " + msg.getContent() );
 
-          nbAgents--;
-        }
-        block();
+          	nbAgents--;
+        	}
+       		block();
 	}
 	
 	public boolean done() {
