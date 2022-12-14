@@ -11,7 +11,7 @@ import jade.lang.acl.*;
 
 public class TestParallelAgent extends Agent {
 	protected void setup() {
-		public int t = 0;
+		// public int t = 0;
 		// Default parameters
 		double lowerBound = 0;
 		double upperBound = 1;
@@ -67,47 +67,57 @@ public class TestParallelAgent extends Agent {
 			low = high;
 		}
 		
-//		addBehaviour(new ListenBehaviour(this, agents.length));
-		addBehaviour(new CyclicBehaviour(this) {
-	        public void action() {
-	          ACLMessage msg = receive();
-	          if (msg!=null) {
-	            System.out.println( " - " +
-	                                myAgent.getLocalName() + " <- " +
-	                                msg.getContent());
-
-	            ACLMessage reply = msg.createReply();
-	            reply.setPerformative( ACLMessage.INFORM );
-	            reply.setContent(" Pong" );
-	            send(reply);
-	          }
-	          block();
-	        }
-	      });
+		addBehaviour(new ListenBehaviour(this, agents.length));
+//		addBehaviour(new CyclicBehaviour(this) {
+//	        public void action() {
+//	          ACLMessage msg = receive();
+//	          if (msg!=null) {
+//	            System.out.println( " - " +
+//	                                myAgent.getLocalName() + " <- " +
+//	                                msg.getContent());
+//
+//	            ACLMessage reply = msg.createReply();
+//	            reply.setPerformative( ACLMessage.INFORM );
+//	            reply.setContent(" Pong" );
+//	            send(reply);
+//	          }
+//	          block();
+//	        }
+//	      });
 	}
 }
 
 class ListenBehaviour extends SimpleBehaviour {
-	int nbAgents;
-	Agent a;
+	protected Agent a;
+	protected int nbAgents;
+	protected double result = 0;
+	protected static long t0 = System.currentTimeMillis();
 	
 	public ListenBehaviour(Agent a, int nbAgents) {
 		super(a);
 		this.a = a;
-		this.nbAgents = nbAgents
+		this.nbAgents = nbAgents;
 	}
 	
 	public void action() {
-		ACLMessage msg = a.receive();
-        	if (msg!=null) {
-          	System.out.println( " - " + a.getLocalName() + " <- " + msg.getContent() );
+		ACLMessage msg = myAgent.receive();
+        if (msg!=null) {
+          System.out.println( " - " + myAgent.getLocalName() + " <- " + msg.getContent() );
+          result += Integer.parseInt(msg.getContent());
 
-          	nbAgents--;
-        	}
-       		block();
+          nbAgents--;
+        }
+        block();
 	}
 	
 	public boolean done() {
-		return nbAgents == 0;
+		if(nbAgents == 0) {
+			long t = System.currentTimeMillis();
+			System.out.println("Computation finished in " + (t - t0) + "ms.");
+			System.out.println("Result: " + result);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
