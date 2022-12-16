@@ -8,17 +8,8 @@ public class ExponentialFunction extends Function{
 	}
 
 	@Override
-	public double eval() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public double f(double x) {
 		// TODO Auto-generated method stub
-		return 0;
+		return Math.exp(x);
 	}
-	
-	
-
 }
