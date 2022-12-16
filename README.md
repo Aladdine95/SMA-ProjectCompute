@@ -17,6 +17,9 @@ Use `java jade.Boot -gui [list agents]` to launch the JADE graphical user interf
 You will also need a testParallelAgent. When you create this agent, you have to pass some parameters: the higher bound of the interval, the lower bound of the interval, and the step, which defines the accuracy of the approximation.
 If you do not create the compute agents, the program should create some for you.
 
+## Simulation scenario
+Create a number of ComputeAgents with or without arguments("Inverse"(default), "Exponential", "NeperianLogarithm"). Create a TestParallelAgent(no arguments = Inverse function with 0-1 interval and 0.1 step, 3 arguments = Inverse function with given interval and step, 4 arguments = Given function, interval and step). The results will appear in the console.
+
 ## Documentation
 The source code is commented and the Javadoc is generated. If you have to
 generate it again, you can
