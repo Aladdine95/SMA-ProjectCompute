@@ -11,7 +11,8 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import util.Utilitary;
 
-/*
+/**
+ * 
  * To setup the wanted function, define the first argument of the agent as the function, three function are available : 
  * 	- InverseFunction (1/x) -> setup argument would be : Inverse
  *  - ExponentialFunction (e^x) -> setup argument would be : Exponential
@@ -19,12 +20,14 @@ import util.Utilitary;
  * If no argument is defined or the argument is unknown, the default one would be : InverseFunction
  * More arguments will lead nowhere as they will not be used.
  * 
- * This agent's behavior is to recieve a certain type of message with 3 components to do a certain type of calculation and send the result.
- * 	- The Agent is supposed to recieve a message with the following format (separated with commas): UpperBoundary, LowerBoundary and the Step
- *  - Once the message is recieved, calculation begins
+ * This agent's behavior is to receive a certain type of message with 3 components to do a certain type of calculation and send the result.
+ * 	- The Agent is supposed to receive a message with the following format (separated with commas): UpperBoundary, LowerBoundary and the Step
+ *  - Once the message is received, calculation begins
  *  - Once the calculation ends, it is returned to the transmitter
  * 
- *
+ * 	@param f Function
+ *	@author BEN ROMDHANE TEIXEIRA DÉBART
+ *	@version 1.0
  */
 public class ComputeAgent extends Agent{
 	/**
@@ -52,7 +55,6 @@ public class ComputeAgent extends Agent{
 				ACLMessage msg = receive();
 				double result = -1;
 				if (msg!=null) {
-					System.out.println(" - " + myAgent.getLocalName() + " <- " + msg.getContent() );
 					String recievedMessage = msg.getContent().toString();
 					String[] parameters = recievedMessage.split(",");
 					double upper = 0;
@@ -64,32 +66,27 @@ public class ComputeAgent extends Agent{
 						lower = Double.valueOf(parameters[1]);
 						step = Double.valueOf(parameters[2]);
 						agentSDType = Utilitary.isAgentGivenType(this.getAgent());
-						System.out.println(agentSDType);
 						Function func = null;
-						if(agentSDType == "Inverse") {
+						if(agentSDType.equals("Inverse")) {
 							func = new InverseFunction(lower, upper, step);
-							System.out.println("InverseInside");
 						}
-						else if(agentSDType == "NeperianLogarithm") {
+						else if(agentSDType.equals("NeperianLogarithm")) {
 							func = new NeperianLogarithmFunction(lower, upper, step);
-							System.out.println("NeperianLogarithmInside");
 						}
-						else if(agentSDType == "Exponential") {
+						else if(agentSDType.equals("Exponential")) {
 							func = new ExponentialFunction(lower, upper, step);
-							System.out.println("ExponentialInside");
 						}
 						else {
-							System.out.println("Function is not recognized.");
+							System.err.println("Function is not recognized.");
 						}
 						
 						if(func != null) {
 							result = func.eval();
-							System.out.println(result);
 						}
 							
 					}
 					catch(Exception e) {
-						System.out.println("Wrong format was recieved, aborting the calculations");
+						System.err.println("Wrong format was recieved, aborting the calculations");
 					}
 					
 					ACLMessage reply = msg.createReply();
