@@ -4,7 +4,7 @@ M2 IISC - CY Cergy Paris Université
 1. Overview
 2. How to use it
 3. Documentation
-4. V1 flaws and bugs
+4. Known issues and bugs
 
 ## Overview
 This program aims at computing an integral on a given interval, for a given function. The system computes the integral via multiple agents, each returning part of the result. For more precise information, you can get the subject here :
