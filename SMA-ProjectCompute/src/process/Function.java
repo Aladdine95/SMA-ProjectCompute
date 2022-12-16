@@ -2,6 +2,17 @@ package process;
 
 import java.lang.Math;
 
+/**
+ * 
+ * Abstract class to implement the various functions in our system.
+ * We want to compute the integral of a function, on a given interval.
+ * An object Function will be passed to the agent in charge of computing
+ * the integral on a specific interval, defined by min and max. The field delta
+ * is the step which defines the accuracy of the approximation
+ * 
+ * @author DEBART TEIXEIRA BEN ROMDHANE
+ *
+ */
 public abstract class Function {
 	private double min;
 	private double max;
@@ -21,10 +32,9 @@ public abstract class Function {
 
 	/**
 	 * Method used to compute the integral using the bounds and the step 
-	 * of the object
-	 * @return the value of the integral
+	 * of the object.
+	 * @return the value of the integral using simpson method
 	 */
-
 	public double eval() {
 		int n = (int) ((max - min) / delta); // number of intervals
 		double sum = 0;

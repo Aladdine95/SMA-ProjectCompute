@@ -1,5 +1,12 @@
 package process;
-
+/**
+ * 
+ * Derived Class for the logarithm function in our system. It overrides the f(x) method
+ * defined in the super class Function
+ * 
+ * @author DEBART TEIXEIRA BEN ROMDHANE
+ *
+ */
 public class NeperianLogarithmFunction extends Function{
 
 

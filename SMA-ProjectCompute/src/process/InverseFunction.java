@@ -1,5 +1,15 @@
 package process;
 
+/**
+ * Derived Class for the inverse function in our system. It overrides the f(x) method
+ * defined in the super class Function. The inverse function is especially usefull
+ * to check if the calculus is right: 
+ * the integral between 1 and exp of the function 1/x equals 1.
+ * Therefore, we can check if our system is accurate by using this function
+ * 
+ * @author BEN ROMDHANE DEBART TEIXEIRA
+ *
+ */
 public class InverseFunction extends Function{
 
 	/**
