@@ -13,8 +13,8 @@ The program is written in Java, and we use the JADE framework.
 This project can be see on [github](https://github.com/Aladdine95/SMA-ProjectCompute).
 
 ## How to use it
-Use `java jade.Boot -gui [liste agents]` to launch the JADE graphical user interface. You can then use the GUI to create the compute agents you want.
-You will also need a testParalleleAgent. When you create this agent, you have to pass some parameters: the lower bound of the interval, the higher bound of the interval, and the step, which defines the accuracy of the approximation.
+Use `java jade.Boot -gui [list agents]` to launch the JADE graphical user interface. You can then use the GUI to create the compute agents you want.
+You will also need a testParallelAgent. When you create this agent, you have to pass some parameters: the higher bound of the interval, the lower bound of the interval, and the step, which defines the accuracy of the approximation.
 If you do not create the compute agents, the program should create some for you.
 
 ## Documentation
