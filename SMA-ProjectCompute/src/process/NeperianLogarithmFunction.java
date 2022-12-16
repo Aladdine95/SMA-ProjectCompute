@@ -10,9 +10,15 @@ public class NeperianLogarithmFunction extends Function{
 
 
 	@Override
-	public double f(double x) {
+	public double f(double x) throws ArithmeticException{
 		// TODO Auto-generated method stub
-		return Math.log(x);
+		try {
+			return Math.log(x);
+
+		}catch(ArithmeticException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

@@ -8,8 +8,14 @@ public class ExponentialFunction extends Function{
 	}
 
 	@Override
-	public double f(double x) {
+	public double f(double x) throws ArithmeticException {
 		// TODO Auto-generated method stub
-		return Math.exp(x);
+		try {
+			return Math.exp(x);
+		}catch(ArithmeticException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 }

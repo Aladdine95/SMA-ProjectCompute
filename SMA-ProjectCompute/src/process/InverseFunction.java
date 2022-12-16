@@ -8,12 +8,13 @@ public class InverseFunction extends Function{
 	}
 	
 	@Override
-	public double f(double x) {
+	public double f(double x) throws ArithmeticException{
 		// TODO Auto-generated method stub
 		try {
 			return 1/x; //check math lib
-		}catch(numericalException e) {
+		}catch(ArithmeticException e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 }

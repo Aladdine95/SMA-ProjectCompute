@@ -13,7 +13,7 @@ public abstract class Function {
 		this.delta = delta;
 	}
 	
-	public abstract double eval() {
+	public double eval() {
 		 //methode de simpson ou rectangles ?
 		//rectangles :
 //		float tmp = 0;
@@ -30,7 +30,7 @@ public abstract class Function {
      */
       // 1/3 terms
 	
-	  N = (min-max)/this.delta;
+	  double N = (min-max)/this.delta;
       double sum = 1.0 / 3.0 * (f(min) + f(max));
 	 
       // 4/3 terms
