@@ -19,7 +19,7 @@ If you do not create the compute agents, the program should create some for you.
 
 ## Simulation scenario
 ### With GUI
-Create a number of ComputeAgents with or without arguments("Inverse"(default), "Exponential", "NeperianLogarithm"). Create a TestParallelAgent(no arguments = Inverse function with 0-1 interval and 0.1 step, 3 arguments = Inverse function with given interval and step, 4 arguments = Given function, interval and step). The results will appear in the console.
+Create a number of ComputeAgents with or without arguments("Inverse"(default), "Exponential", "NeperianLogarithm"). Create a TestParallelAgent(no arguments = Inverse function with 0-1 interval and 0.1 step, 3 arguments = Inverse function with given interval and step - Format:upperBound,lowerBound,step , 4 arguments = Given function, interval and step - Format: upperBound,lowerBound,step,functionName). The results will appear in the console.
 
 ### Create 3 ComputeAgents and 1 TestParallelAgent
 -agents ca0:process.ComputeAgent(Inverse);ca1:process.ComputeAgent(Inverse);ca2:process.ComputeAgent(Inverse);tpa0:test.TestParallelAgent(1,2.71828182846,0.01,Inverse) --port 8080 -gui
