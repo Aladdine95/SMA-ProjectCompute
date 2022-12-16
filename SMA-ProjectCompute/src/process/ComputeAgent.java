@@ -50,6 +50,7 @@ public class ComputeAgent extends Agent{
 			private static final long serialVersionUID = 2201275969106691134L;
 			public void action() {
 				ACLMessage msg = receive();
+				double result = -1;
 				if (msg!=null) {
 					System.out.println(" - " + myAgent.getLocalName() + " <- " + msg.getContent() );
 					String recievedMessage = msg.getContent().toString();
@@ -57,7 +58,6 @@ public class ComputeAgent extends Agent{
 					double upper = 0;
 					double lower = 0;
 					double step = 0;
-					double result = 0;
 					String agentSDType = null;
 					try {
 						upper = Double.valueOf(parameters[0]);
@@ -82,15 +82,19 @@ public class ComputeAgent extends Agent{
 							System.out.println("Function is not recognized.");
 						}
 						
-						if(func != null)
-							System.out.println(func);
+						if(func != null) {
+							result = func.eval();
+							System.out.println(result);
+						}
+							
 					}
 					catch(Exception e) {
 						System.out.println("Wrong format was recieved, aborting the calculations");
 					}
+					
 					ACLMessage reply = msg.createReply();
 					reply.setPerformative( ACLMessage.INFORM );
-					reply.setContent("We were supposed to meet in an hour!");
+					reply.setContent(Double.toString(result));
 					send(reply);
 				}
 				block();
@@ -99,7 +103,14 @@ public class ComputeAgent extends Agent{
 	}
 
 	protected void takeDown() {
-
+		if(isAlive()) {
+			super.takeDown();
+			System.out.println("Taking down agent " + getAID().getName());
+		
+		}
+		else {
+			System.out.println("Agent " + getAID().getName() + " is already deleted.");
+		}
 	}
 
 	protected void register(ServiceDescription sd) {
