@@ -25,7 +25,7 @@ import util.Utilitary;
  *  - Once the message is received, calculation begins
  *  - Once the calculation ends, it is returned to the transmitter
  * 
- * 	@param f Function
+ * 	@param f @see Function
  *	@author BEN ROMDHANE TEIXEIRA DÉBART
  *	@version 1.0
  */
@@ -49,6 +49,7 @@ public class ComputeAgent extends Agent{
 	    sd.setName(getLocalName());
 	    register(sd);
 	    
+	    // Adding new behaviour as a CyclicBehavior 
 		addBehaviour(new CyclicBehaviour(this) {
 			private static final long serialVersionUID = 2201275969106691134L;
 			public void action() {
@@ -61,11 +62,15 @@ public class ComputeAgent extends Agent{
 					double lower = 0;
 					double step = 0;
 					String agentSDType = null;
+					
+					// Fetching through the given arguments the step, lower bound and upper bound
 					try {
 						upper = Double.valueOf(parameters[0]);
 						lower = Double.valueOf(parameters[1]);
 						step = Double.valueOf(parameters[2]);
 						agentSDType = Utilitary.isAgentGivenType(this.getAgent());
+						
+						// Assign to "func" the wanted operation through what was given in arguments
 						Function func = null;
 						if(agentSDType.equals("Inverse")) {
 							func = new InverseFunction(lower, upper, step);
@@ -89,6 +94,7 @@ public class ComputeAgent extends Agent{
 						System.err.println("Wrong format was recieved, aborting the calculations");
 					}
 					
+					// Once the calculations are finished, replying to the TestParallelAgent the final answer
 					ACLMessage reply = msg.createReply();
 					reply.setPerformative( ACLMessage.INFORM );
 					reply.setContent(Double.toString(result));
@@ -99,6 +105,11 @@ public class ComputeAgent extends Agent{
 		});
 	}
 
+	/**
+	 * Overwritting the takeDown method to properly delete the agent while notifying through the console.
+	 * For more information, checkout the Java Jade Doc (c.f Agent -> Takedown)
+	 *
+	 */
 	protected void takeDown() {
 		if(isAlive()) {
 			super.takeDown();
@@ -109,7 +120,13 @@ public class ComputeAgent extends Agent{
 			System.out.println("Agent " + getAID().getName() + " is already deleted.");
 		}
 	}
-
+	
+	/**
+	 * register allows us to register through DFAgentDescription a type and service to sort and search
+	 * through all the agents for specific agents.
+	 * @param sd ServiceDescription
+	 * 
+	 */
 	protected void register(ServiceDescription sd) {
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(getAID());
