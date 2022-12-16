@@ -22,5 +22,5 @@ The source code is commented and the Javadoc is generated. If you have to
 generate it again, you can
 type `javadoc -d doc src\*` given that every source file is in the src directory. The `-d doc` option sets the name of the directory in which the Javadoc will be generated.
 
-## V1 flaws and bugs
-?
+## Known issues and bugs
+If there are no agents during the creation of testParallelAgent, some computeAgents are created, but to use them, we have to create another Agent.
