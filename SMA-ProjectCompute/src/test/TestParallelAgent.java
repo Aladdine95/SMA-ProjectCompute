@@ -1,4 +1,4 @@
-package intro_sma;
+package test;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -8,6 +8,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.*;
+import process.*;
 
 public class TestParallelAgent extends Agent {
 	protected void setup() {
@@ -17,7 +18,7 @@ public class TestParallelAgent extends Agent {
 		double upperBound = 1;
 		double step = 0.1;
 //		Function function = new InverseFunction(lowerBound, upperBound, step);
-		String function = "InverseFunction";
+		String function = "Inverse";
 		
 		System.out.println(getLocalName() + " initialized.");
 		
@@ -28,13 +29,14 @@ public class TestParallelAgent extends Agent {
 	    	upperBound = Double.parseDouble((String) args[1]);
 	    	step = Double.parseDouble((String) args[2]);
 	    	
+	    	function = (String) args[3];
 //	    	function = new InverseFunction(lowerBound, upperBound, step);
 	    }
 	    
 	    // Search for agents with that can compute
 		DFAgentDescription template = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType("compute");
+		sd.setType(function);
 		template.addServices(sd);
 		
 		AID[] agents = null;
@@ -61,7 +63,7 @@ public class TestParallelAgent extends Agent {
 			
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 			msg.addReceiver(aid);
-			msg.setContent(function + ", " + low + ", " + high + ", " + step);
+			msg.setContent(high + ", " + low + ", " + step);
 			send(msg);
 			
 			low = high;
